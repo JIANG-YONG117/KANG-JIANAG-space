@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>康康和江江的情侣专属空间</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for romantic icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Noto Serif SC"', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif']
+                    },
+                    colors: {
+                        roseBlush: '#fff1f2',
+                        romanticPink: '#f43f5e',
+                        softPurple: '#8b5cf6',
+                        warmPeach: '#fff7ed'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 50%, #eff6ff 100%);
+            min-height: 100vh;
+            color: #4b5563;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.08);
+        }
+        .glass-tab {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .animate-heart {
+            animation: pulseHeart 1.5s infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(244, 63, 94, 0.2);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(244, 63, 94, 0.4);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased pb-24 selection:bg-rose-200 selection:text-rose-900">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-rose-100 px-4 py-3 shadow-sm">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="relative flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-tr from-rose-400 to-purple-500 text-white shadow-md animate-float">
+                    <i class="fa-solid fa-heart text-sm animate-heart"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-lg bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">康康 & 江江</h1>
+                    <p class="text-xs text-gray-500">我们的专属浪漫小窝 💕</p>
+                </div>
+            </div>
+            <!-- Quick Date Badge -->
+            <div id="headerLoveBadge" class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium cursor-pointer hover:bg-rose-100 transition" onclick="switchTab('dday')">
+                <i class="fa-solid fa-infinity text-rose-500"></i>
+                <span id="headerLoveDaysText">恋爱中 0 天</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pt-6 space-y-6">
+
+        <!-- Tab Navigation Bar -->
+        <nav class="flex overflow-x-auto space-x-2 p-1.5 glass-tab rounded-2xl shadow-sm">
+            <button onclick="switchTab('home')" id="nav-home" class="flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-rose-600 bg-white shadow-sm">
+                <i class="fa-solid fa-house-heart"></i>
+                <span>首页空间</span>
+            </button>
+            <button onclick="switchTab('dday')" id="nav-dday" class="flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-gray-600 hover:text-rose-600">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>见面倒数</span>
+            </button>
+            <button onclick="switchTab('meals')" id="nav-meals" class="flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-gray-600 hover:text-rose-600">
+                <i class="fa-solid fa-utensils"></i>
+                <span>三餐打卡</span>
+            </button>
+            <button onclick="switchTab('todos')" id="nav-todos" class="flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-gray-600 hover:text-rose-600">
+                <i class="fa-solid fa-list-check"></i>
+                <span>互助备忘</span>
+            </button>
+            <button onclick="switchTab('writing')" id="nav-writing" class="flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-gray-600 hover:text-rose-600">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>每日美文</span>
+            </button>
+        </nav>
+
+        <!-- ================= TAB 1: HOME ================= -->
+        <div id="tab-home" class="space-y-6 tab-content animate-fadeIn">
+            <!-- Hero Banner / Couple Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-rose-300/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-10 -top-10 w-48 h-48 bg-purple-300/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center space-x-4 md:space-x-6">
+                        <!-- Kangkang Avatar -->
+                        <div class="relative group cursor-pointer" onclick="editAvatar('kang')">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full p-1 bg-gradient-to-tr from-rose-400 to-pink-500 shadow-md">
+                                <img id="avatarKang" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="康康" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <span class="absolute bottom-0 right-0 bg-white text-rose-500 p-1.5 rounded-full shadow text-xs"><i class="fa-solid fa-camera"></i></span>
+                            <p class="text-center font-serif font-bold mt-2 text-gray-800">康康</p>
+                        </div>
+
+                        <!-- Heart Beat Icon Center -->
+                        <div class="flex flex-col items-center justify-center px-2">
+                            <div class="w-12 h-12 rounded-full bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-500/30 animate-heart">
+                                <i class="fa-solid fa-heart text-xl"></i>
+                            </div>
+                            <span id="homeLoveDaysBadge" class="text-xs font-semibold text-rose-600 mt-2 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">已相恋 0 天</span>
+                        </div>
+
+                        <!-- Jiangjiang Avatar -->
+                        <div class="relative group cursor-pointer" onclick="editAvatar('jiang')">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full p-1 bg-gradient-to-tr from-purple-400 to-indigo-500 shadow-md">
+                                <img id="avatarJiang" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="江江" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <span class="absolute bottom-0 right-0 bg-white text-purple-500 p-1.5 rounded-full shadow text-xs"><i class="fa-solid fa-camera"></i></span>
+                            <p class="text-center font-serif font-bold mt-2 text-gray-800">江江</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Countdown Preview Widget -->
+                    <div class="w-full md:w-auto bg-white/80 backdrop-blur rounded-2xl p-5 border border-rose-100 shadow-sm flex flex-col justify-center min-w-[260px]">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-rose-500"><i class="fa-solid fa-hourglass-start mr-1"></i> 距离下次见面</span>
+                            <button onclick="switchTab('dday')" class="text-xs text-gray-400 hover:text-rose-600"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div id="homeCountdownDisplay" class="flex items-baseline space-x-2 text-gray-800">
+                            <span class="text-3xl font-extrabold text-rose-600 font-serif" id="homeDaysNum">--</span>
+                            <span class="text-sm font-medium">天</span>
+                            <span class="text-xl font-bold text-purple-600 font-serif" id="homeHoursNum">--</span>
+                            <span class="text-xs">时</span>
+                            <span class="text-xl font-bold text-purple-600 font-serif" id="homeMinsNum">--</span>
+                            <span class="text-xs">分</span>
+                        </div>
+                        <p id="homeEventTitle" class="text-xs text-gray-500 mt-1 truncate">期待下一次紧紧拥抱的日子 ✨</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access Grid / Today's Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Today's Meal Quick Preview -->
+                <div class="glass-card rounded-3xl p-6 cursor-pointer hover:shadow-lg transition" onclick="switchTab('meals')">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-bowl-food text-rose-500"></i>
+                            <span>今日三餐打卡动态</span>
+                        </h3>
+                        <span class="text-xs text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full font-medium">去打卡 <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                    <div id="homeMealSummary" class="grid grid-cols-3 gap-3 text-center">
+                        <div class="bg-white/60 p-3 rounded-2xl border border-gray-100">
+                            <p class="text-xs text-gray-400 mb-1">早餐</p>
+                            <p id="summaryBreakfast" class="text-sm font-semibold text-gray-700 truncate">未打卡</p>
+                        </div>
+                        <div class="bg-white/60 p-3 rounded-2xl border border-gray-100">
+                            <p class="text-xs text-gray-400 mb-1">午餐</p>
+                            <p id="summaryLunch" class="text-sm font-semibold text-gray-700 truncate">未打卡</p>
+                        </div>
+                        <div class="bg-white/60 p-3 rounded-2xl border border-gray-100">
+                            <p class="text-xs text-gray-400 mb-1">晚餐</p>
+                            <p id="summaryDinner" class="text-sm font-semibold text-gray-700 truncate">未打卡</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Article Quick Preview -->
+                <div class="glass-card rounded-3xl p-6 cursor-pointer hover:shadow-lg transition" onclick="switchTab('writing')">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open-reader text-purple-500"></i>
+                            <span>今日推荐美文</span>
+                        </h3>
+                        <span class="text-xs text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full font-medium">阅读与写作 <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                    <div class="bg-white/60 p-4 rounded-2xl border border-purple-50">
+                        <h4 id="homeArticleTitle" class="font-serif font-bold text-gray-800 text-sm mb-1 truncate">加载中...</h4>
+                        <p id="homeArticleExcerpt" class="text-xs text-gray-500 line-clamp-2">每日精选一则温馨散文或写作小技巧，和江江康康一起记录生活点滴。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Pending Todos Preview -->
+            <div class="glass-card rounded-3xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-clipboard-list text-amber-500"></i>
+                        <span>待办提醒事项</span>
+                    </h3>
+                    <button onclick="switchTab('todos')" class="text-xs text-rose-600 hover:underline font-medium">查看全部</button>
+                </div>
+                <div id="homeTodoListPreview" class="space-y-2">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: D-DAY COUNTDOWN ================= -->
+        <div id="tab-dday" class="space-y-6 tab-content hidden animate-fadeIn">
+            <!-- Big Countdown Card -->
+            <div class="glass-card rounded-3xl p-8 text-center relative overflow-hidden bg-gradient-to-b from-white/90 to-rose-50/50">
+                <div class="absolute top-4 right-4">
+                    <button onclick="openEditDDayModal()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 px-3 py-1.5 rounded-full text-xs font-semibold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>修改日期</span>
+                    </button>
+                </div>
+
+                <span id="ddaySubtitle" class="inline-block px-3.5 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold tracking-wider uppercase mb-4">
+                    ✨ 距离 下次见面 ✨
+                </span>
+                
+                <h2 id="ddayTargetName" class="font-serif font-bold text-2xl md:text-3xl text-gray-800 mb-6">下一次甜蜜相聚</h2>
+
+                <!-- Big Number Countdown Display -->
+                <div class="grid grid-cols-4 gap-2 md:gap-4 max-w-lg mx-auto mb-8">
+                    <div class="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-rose-100">
+                        <span id="countDays" class="text-3xl md:text-5xl font-extrabold font-serif text-rose-600">00</span>
+                        <p class="text-xs text-gray-500 mt-1 font-medium">天</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-rose-100">
+                        <span id="countHours" class="text-3xl md:text-5xl font-extrabold font-serif text-purple-600">00</span>
+                        <p class="text-xs text-gray-500 mt-1 font-medium">时</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-rose-100">
+                        <span id="countMins" class="text-3xl md:text-5xl font-extrabold font-serif text-indigo-600">00</span>
+                        <p class="text-xs text-gray-500 mt-1 font-medium">分</p>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-rose-100">
+                        <span id="countSecs" class="text-3xl md:text-5xl font-extrabold font-serif text-pink-600">00</span>
+                        <p class="text-xs text-gray-500 mt-1 font-medium">秒</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
+                    <div class="bg-white/60 px-4 py-2 rounded-xl border border-gray-100">
+                        <i class="fa-solid fa-calendar-check text-rose-500 mr-1.5"></i> 目标日期：<span id="displayTargetDate" class="font-semibold text-gray-800">2026-10-01</span>
+                    </div>
+                    <div class="bg-white/60 px-4 py-2 rounded-xl border border-gray-100">
+                        <i class="fa-solid fa-heart-pulse text-purple-500 mr-1.5"></i> 恋爱纪念日：<span id="displayLoveDate" class="font-semibold text-gray-800">2024-05-20</span> (<span id="totalLoveDays" class="text-purple-600 font-bold">0</span>天)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestone Cards -->
+            <div class="glass-card rounded-3xl p-6">
+                <h3 class="font-serif font-bold text-lg text-gray-800 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-award text-rose-500"></i>
+                    <span>康康与江江的浪漫里程碑</span>
+                </h3>
+                <div id="milestonesList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: MEALS CHECK-IN ================= -->
+        <div id="tab-meals" class="space-y-6 tab-content hidden animate-fadeIn">
+            <!-- Date header selector -->
+            <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div>
+                        <h3 id="mealDateTitle" class="font-serif font-bold text-gray-800">今日三餐食光</h3>
+                        <p class="text-xs text-gray-500">康康和江江的双人饭桌 🍜</p>
+                    </div>
+                </div>
+                <input type="date" id="mealDateSelector" class="bg-white/80 border border-rose-200 text-xs rounded-xl px-3 py-2 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-rose-400" onchange="changeMealDate(this.value)">
+            </div>
+
+            <!-- Meal Sections Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Breakfast -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-sun text-amber-500"></i>
+                                <span>早餐</span>
+                            </span>
+                            <span id="badgeBreakfastStatus" class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500">未打卡</span>
+                        </div>
+                        <div class="space-y-4">
+                            <!-- Kangkang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-rose-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-rose-600">康康</span>
+                                    <span id="timeBreakfastKang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textBreakfastKang" class="text-xs text-gray-600 italic mb-2">还没有记录早餐哦~</p>
+                                <img id="imgBreakfastKang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                            <!-- Jiangjiang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-purple-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-purple-600">江江</span>
+                                    <span id="timeBreakfastJiang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textBreakfastJiang" class="text-xs text-gray-600 italic mb-2">还没有记录早餐哦~</p>
+                                <img id="imgBreakfastJiang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openCheckInModal('breakfast')" class="mt-4 w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xs font-semibold py-2.5 rounded-xl shadow-md transition flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>打卡早餐</span>
+                    </button>
+                </div>
+
+                <!-- Lunch -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-bowl-rice text-orange-500"></i>
+                                <span>午餐</span>
+                            </span>
+                            <span id="badgeLunchStatus" class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500">未打卡</span>
+                        </div>
+                        <div class="space-y-4">
+                            <!-- Kangkang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-rose-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-rose-600">康康</span>
+                                    <span id="timeLunchKang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textLunchKang" class="text-xs text-gray-600 italic mb-2">还没有记录午餐哦~</p>
+                                <img id="imgLunchKang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                            <!-- Jiangjiang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-purple-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-purple-600">江江</span>
+                                    <span id="timeLunchJiang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textLunchJiang" class="text-xs text-gray-600 italic mb-2">还没有记录午餐哦~</p>
+                                <img id="imgLunchJiang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openCheckInModal('lunch')" class="mt-4 w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xs font-semibold py-2.5 rounded-xl shadow-md transition flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>打卡午餐</span>
+                    </button>
+                </div>
+
+                <!-- Dinner -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-serif font-bold text-gray-800 flex items-center space-x-2">
+                                <i class="fa-solid fa-moon text-indigo-500"></i>
+                                <span>晚餐</span>
+                            </span>
+                            <span id="badgeDinnerStatus" class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500">未打卡</span>
+                        </div>
+                        <div class="space-y-4">
+                            <!-- Kangkang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-rose-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-rose-600">康康</span>
+                                    <span id="timeDinnerKang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textDinnerKang" class="text-xs text-gray-600 italic mb-2">还没有记录晚餐哦~</p>
+                                <img id="imgDinnerKang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                            <!-- Jiangjiang Meal -->
+                            <div class="bg-white/70 p-3 rounded-2xl border border-purple-50">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-purple-600">江江</span>
+                                    <span id="timeDinnerJiang" class="text-[10px] text-gray-400">--:--</span>
+                                </div>
+                                <p id="textDinnerJiang" class="text-xs text-gray-600 italic mb-2">还没有记录晚餐哦~</p>
+                                <img id="imgDinnerJiang" src="" alt="" class="w-full h-28 object-cover rounded-xl hidden mb-2" onerror="this.classList.add('hidden')">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openCheckInModal('dinner')" class="mt-4 w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xs font-semibold py-2.5 rounded-xl shadow-md transition flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>打卡晚餐</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: TODOS / REMINDERS ================= -->
+        <div id="tab-todos" class="space-y-6 tab-content hidden animate-fadeIn">
+            <!-- Add Todo Card -->
+            <div class="glass-card rounded-3xl p-6">
+                <h3 class="font-serif font-bold text-gray-800 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-list-check text-rose-500"></i>
+                    <span>互助备忘录：提醒对方要做的事</span>
+                </h3>
+                <form id="todoForm" onsubmit="addTodo(event)" class="space-y-4">
+                    <div>
+                        <input type="text" id="todoInput" placeholder="写下一件要提醒对方做的小事（如：今天下班记得买热奶茶~）" required class="w-full bg-white/80 border border-rose-100 rounded-2xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-rose-400 shadow-sm">
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4 w-full sm:w-auto">
+                            <span class="text-xs text-gray-500 font-medium">指派给：</span>
+                            <label class="flex items-center space-x-1.5 cursor-pointer text-xs font-medium text-rose-600 bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200">
+                                <input type="radio" name="todoAssignee" value="康康" class="text-rose-600 focus:ring-rose-500">
+                                <span>提醒康康</span>
+                            </label>
+                            <label class="flex items-center space-x-1.5 cursor-pointer text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200">
+                                <input type="radio" name="todoAssignee" value="江江" checked class="text-purple-600 focus:ring-purple-500">
+                                <span>提醒江江</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md text-xs transition flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>添加提醒</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Todo Items List -->
+            <div class="glass-card rounded-3xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="font-serif font-bold text-gray-800">待办清单列表</h4>
+                    <div class="flex space-x-2 text-xs">
+                        <button onclick="filterTodos('all')" id="filter-all" class="px-3 py-1 rounded-full bg-rose-500 text-white font-medium">全部</button>
+                        <button onclick="filterTodos('active')" id="filter-active" class="px-3 py-1 rounded-full bg-white text-gray-600 border border-gray-200 font-medium">未完成</button>
+                        <button onclick="filterTodos('completed')" id="filter-completed" class="px-3 py-1 rounded-full bg-white text-gray-600 border border-gray-200 font-medium">已完成</button>
+                    </div>
+                </div>
+                <div id="todoListContainer" class="space-y-3">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 5: DAILY WRITING & ARTICLES ================= -->
+        <div id="tab-writing" class="space-y-6 tab-content hidden animate-fadeIn">
+            <!-- Article Showcase Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-200/30 rounded-bl-full pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">
+                        <i class="fa-solid fa-feather mr-1"></i> 今日美文推荐
+                    </span>
+                    <span id="articleDateLabel" class="text-xs text-gray-400 font-medium">2026-09-13</span>
+                </div>
+                <h2 id="articleTitle" class="font-serif font-bold text-xl md:text-2xl text-gray-800 mb-3">加载中...</h2>
+                <div id="articleContent" class="text-sm text-gray-600 leading-relaxed space-y-3 mb-6 bg-white/60 p-5 rounded-2xl border border-purple-50 font-serif">
+                    加载文章内容中...
+                </div>
+
+                <!-- Couple Notes / Reading Reflections Box -->
+                <div class="border-t border-purple-100 pt-6">
+                    <h3 class="font-serif font-bold text-gray-800 mb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-comments text-purple-500"></i>
+                        <span>双人今日读后感与微型日记</span>
+                    </h3>
+                    <form id="noteForm" onsubmit="submitNote(event)" class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold text-gray-700">我是：</span>
+                            <label class="cursor-pointer text-xs px-3 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200"><input type="radio" name="noteAuthor" value="康康" checked class="mr-1">康康</label>
+                            <label class="cursor-pointer text-xs px-3 py-1 rounded-lg bg-purple-50 text-purple-700 border border-purple-200"><input type="radio" name="noteAuthor" value="江江" class="mr-1">江江</label>
+                        </div>
+                        <textarea id="noteInputContent" rows="2" placeholder="写下你读完这篇文章的感悟，或者今天想对对方说的一句话..." required class="w-full bg-white/80 border border-purple-100 rounded-2xl p-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-sm"></textarea>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-2 rounded-xl text-xs shadow-md transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>发表感悟</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Notes List -->
+                    <div id="notesListContainer" class="space-y-3">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Meal Check-In Modal -->
+    <div id="mealModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-md bg-white shadow-2xl animate-fadeIn">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="mealModalTitle" class="font-serif font-bold text-lg text-gray-800">打卡早餐</h3>
+                <button onclick="closeModal('mealModal')" class="text-gray-400 hover:text-gray-600 text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="mealForm" onsubmit="saveMeal(event)" class="space-y-4">
+                <input type="hidden" id="modalMealType">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">我是：</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center space-x-1.5 cursor-pointer text-xs font-medium text-rose-600 bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 flex-1 justify-center">
+                            <input type="radio" name="mealUser" value="康康" checked class="text-rose-600">
+                            <span>康康</span>
+                        </label>
+                        <label class="flex items-center space-x-1.5 cursor-pointer text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200 flex-1 justify-center">
+                            <input type="radio" name="mealUser" value="江江" class="text-purple-600">
+                            <span>江江</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">美食描述 / 心情小记：</label>
+                    <textarea id="mealDescInput" rows="3" placeholder="今天吃了什么呀？味道怎么样？" required class="w-full bg-gray-50 border border-gray-200 rounded-2xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">美食图片链接 (可选)：</label>
+                    <input type="url" id="mealImageInput" placeholder="https://example.com/food.jpg" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+                    <p class="text-[10px] text-gray-400 mt-1">留空或输入图片网络地址均可</p>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('mealModal')" class="px-4 py-2 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100">取消</button>
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-5 py-2 rounded-xl shadow-md transition">确认打卡</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit D-Day Modal -->
+    <div id="ddayModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-md bg-white shadow-2xl animate-fadeIn">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-serif font-bold text-lg text-gray-800">设置纪念日与倒数</h3>
+                <button onclick="closeModal('ddayModal')" class="text-gray-400 hover:text-gray-600 text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveDDaySettings(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">下一次见面事件名称：</label>
+                    <input type="text" id="editEventName" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">下一次见面日期与时间：</label>
+                    <input type="datetime-local" id="editTargetDate" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">恋爱起始纪念日 (在一起的日子)：</label>
+                    <input type="date" id="editLoveDate" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('ddayModal')" class="px-4 py-2 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100">取消</button>
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-5 py-2 rounded-xl shadow-md transition">保存设置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Avatar Modal -->
+    <div id="avatarModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-sm bg-white shadow-2xl animate-fadeIn">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="avatarModalTitle" class="font-serif font-bold text-lg text-gray-800">更换头像</h3>
+                <button onclick="closeModal('avatarModal')" class="text-gray-400 hover:text-gray-600 text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveAvatar(event)" class="space-y-4">
+                <input type="hidden" id="editingAvatarUser">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">新头像图片链接：</label>
+                    <input type="url" id="newAvatarUrl" placeholder="https://..." required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeModal('avatarModal')" class="px-4 py-2 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100">取消</button>
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-5 py-2 rounded-xl shadow-md transition">更新头像</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_DATA = {
+            settings: {
+                eventName: "下一次甜蜜相聚",
+                targetDate: "2026-10-01T18:00",
+                loveDate: "2024-05-20",
+                avatarKang: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
+                avatarJiang: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80"
+            },
+            meals: {},
+            todos: [
+                { id: 1, text: "今天下班记得买热奶茶送给江江~", assignee: "康康", completed: false, date: "2026-09-13" },
+                { id: 2, text: "周末一起去看新上映的电影", assignee: "江江", completed: true, date: "2026-09-12" }
+            ],
+            notes: {
+                "2026-09-13": [
+                    { id: 1, author: "康康", content: "今天看到这篇文章，突然觉得我们要像里面写的那样，把平常的生活过成诗。", time: "10:20" },
+                    { id: 2, author: "江江", content: "康康说得对！今晚下班我要吃大餐打卡~", time: "11:05" }
+                ]
+            }
+        };
+
+        const ARTICLES_POOL = [
+            {
+                date: "2026-09-13",
+                title: "把平凡日子过成浪漫诗篇的三个小习惯",
+                content: "生活不需要每天都惊天动地，真正的浪漫往往藏在细碎的烟火气里。第一，每天临睡前给对方一个最温柔的拥抱；第二，一日三餐拍照分享，让远隔两地的彼此也能感知到对方的饭桌温度；第三，用心写下一两句当下的心情感悟。长此以往，岁月的厚度便成了爱情最好的见证。"
+            },
+            {
+                date: "2026-09-14",
+                title: "写给情书的艺术：真诚永远是必杀技",
+                content: "写作水平的提高不在于辞藻有多么华丽，而在于能否捕捉到那一瞬间内心的悸动。描写日落时不要只写好看，要写云层被烧成了温柔的橘红，就像你看着我时眼里的光。把日常的对话变成散文，把每一次想念化作笔尖流淌的墨香。"
+            },
+            {
+                date: "2026-09-15",
+                title: "关于陪伴与远方的双向奔赴",
+                content: "世上最美好的事情，莫过于无论走到哪里，心里总有一个牵挂的人。倒计时数字的跳动，不仅是在计算时间，更是在丈量思念的深度。每一次相聚前的期待，都让重逢的那一刻变得无比珍贵。"
+            }
+        ];
+
+        let appData = {};
+        let currentTab = 'home';
+        let currentSelectedMealDate = new Date().toISOString().split('T')[0];
+        let currentTodoFilter = 'all';
+
+        window.onload = function() {
+            loadData();
+            initApp();
+            setInterval(updateCountdowns, 1000);
+        };
+
+        function loadData() {
+            const saved = localStorage.getItem('kang_jiang_space_data');
+            if (saved) {
+                try {
+                    appData = JSON.parse(saved);
+                } catch (e) {
+                    appData = DEFAULT_DATA;
+                }
+            } else {
+                appData = DEFAULT_DATA;
+                saveData();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('kang_jiang_space_data', JSON.stringify(appData));
+        }
+
+        function initApp() {
+            document.getElementById('avatarKang').src = appData.settings.avatarKang;
+            document.getElementById('avatarJiang').src = appData.settings.avatarJiang;
+            document.getElementById('mealDateSelector').value = currentSelectedMealDate;
+
+            renderHome();
+            renderDDay();
+            renderMeals();
+            renderTodos();
+            renderArticle();
+        }
+
+        function renderHome() {
+            // Home tab renders updates dynamically via countdown & meals preview
+            renderMeals();
+            renderTodos();
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const tabs = ['home', 'dday', 'meals', 'todos', 'writing'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (t === tabId) {
+                    el.classList.remove('hidden');
+                    nav.className = "flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-rose-600 bg-white shadow-sm";
+                } else {
+                    el.classList.add('hidden');
+                    nav.className = "flex-1 min-w-[90px] py-2.5 px-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center space-x-2 text-gray-600 hover:text-rose-600";
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateCountdowns() {
+            const now = new Date().getTime();
+            
+            const targetTime = new Date(appData.settings.targetDate).getTime();
+            const diff = targetTime - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                if (document.getElementById('homeDaysNum')) {
+                    document.getElementById('homeDaysNum').innerText = days;
+                    document.getElementById('homeHoursNum').innerText = hours;
+                    document.getElementById('homeMinsNum').innerText = mins;
+                }
+                if (document.getElementById('countDays')) {
+                    document.getElementById('countDays').innerText = String(days).padStart(2, '0');
+                    document.getElementById('countHours').innerText = String(hours).padStart(2, '0');
+                    document.getElementById('countMins').innerText = String(mins).padStart(2, '0');
+                    document.getElementById('countSecs').innerText = String(secs).padStart(2, '0');
+                }
+            } else {
+                if (document.getElementById('homeDaysNum')) {
+                    document.getElementById('homeDaysNum').innerText = "0";
+                    document.getElementById('homeHoursNum').innerText = "0";
+                    document.getElementById('homeMinsNum').innerText = "0";
+                }
+            }
+
+            const loveTime = new Date(appData.settings.loveDate).getTime();
+            const loveDiff = now - loveTime;
+            const loveDays = Math.max(0, Math.floor(loveDiff / (1000 * 60 * 60 * 24)));
+
+            if (document.getElementById('headerLoveDaysText')) {
+                document.getElementById('headerLoveDaysText').innerText = `恋爱中 ${loveDays} 天`;
+            }
+            if (document.getElementById('homeLoveDaysBadge')) {
+                document.getElementById('homeLoveDaysBadge').innerText = `已相恋 ${loveDays} 天`;
+            }
+            if (document.getElementById('totalLoveDays')) {
+                document.getElementById('totalLoveDays').innerText = loveDays;
+            }
+        }
+
+        function renderDDay() {
+            document.getElementById('ddayTargetName').innerText = appData.settings.eventName;
+            document.getElementById('ddaySubtitle').innerText = `✨ 距离 ${appData.settings.eventName} ✨`;
+            document.getElementById('displayTargetDate').innerText = appData.settings.targetDate.replace('T', ' ');
+            document.getElementById('displayLoveDate').innerText = appData.settings.loveDate;
+            document.getElementById('homeEventTitle').innerText = `期待【${appData.settings.eventName}】的到来 ✨`;
+
+            const loveTime = new Date(appData.settings.loveDate).getTime();
+            const now = new Date().getTime();
+            const loveDays = Math.max(0, Math.floor((now - loveTime) / (1000 * 60 * 60 * 24)));
+
+            const milestones = [
+                { title: "恋爱 100 天", days: 100, icon: "fa-seedling" },
+                { title: "恋爱半周年 (182天)", days: 182, icon: "fa-spa" },
+                { title: "恋爱 365 天 (一周年)", days: 365, icon: "fa-ring" },
+                { title: "恋爱 520 天", days: 520, icon: "fa-heart" },
+                { title: "恋爱 999 天", days: 999, icon: "fa-gem" },
+                { title: "恋爱 1314 天", days: 1314, icon: "fa-infinity" }
+            ];
+
+            let html = '';
+            milestones.forEach(m => {
+                const passed = loveDays >= m.days;
+                const remain = m.days - loveDays;
+                html += `
+                    <div class="bg-white/70 p-4 rounded-2xl border ${passed ? 'border-rose-200 bg-rose-50/40' : 'border-gray-100'} flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl ${passed ? 'bg-rose-500 text-white' : 'bg-gray-100 text-gray-400'} flex items-center justify-center">
+                                <i class="fa-solid ${m.icon}"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-sm text-gray-800">${m.title}</h4>
+                                <p class="text-xs text-gray-500">${passed ? '已达成浪漫纪念 ✨' : `还有 ${remain} 天到达`}</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${passed ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-500'}">
+                            ${passed ? '已达成' : '进行中'}
+                        </span>
+                    </div>
+                `;
+            });
+            document.getElementById('milestonesList').innerHTML = html;
+        }
+
+        function openEditDDayModal() {
+            document.getElementById('editEventName').value = appData.settings.eventName;
+            document.getElementById('editTargetDate').value = appData.settings.targetDate;
+            document.getElementById('editLoveDate').value = appData.settings.loveDate;
+            document.getElementById('ddayModal').classList.remove('hidden');
+            document.getElementById('ddayModal').classList.add('flex');
+        }
+
+        function saveDDaySettings(e) {
+            e.preventDefault();
+            appData.settings.eventName = document.getElementById('editEventName').value;
+            appData.settings.targetDate = document.getElementById('editTargetDate').value;
+            appData.settings.loveDate = document.getElementById('editLoveDate').value;
+            saveData();
+            renderDDay();
+            closeModal('ddayModal');
+        }
+
+        function editAvatar(user) {
+            document.getElementById('editingAvatarUser').value = user;
+            document.getElementById('avatarModalTitle').innerText = `更换 ${user === 'kang' ? '康康' : '江江'} 的头像`;
+            document.getElementById('newAvatarUrl').value = user === 'kang' ? appData.settings.avatarKang : appData.settings.avatarJiang;
+            document.getElementById('avatarModal').classList.remove('hidden');
+            document.getElementById('avatarModal').classList.add('flex');
+        }
+
+        function saveAvatar(e) {
+            e.preventDefault();
+            const user = document.getElementById('editingAvatarUser').value;
+            const url = document.getElementById('newAvatarUrl').value;
+            if (user === 'kang') {
+                appData.settings.avatarKang = url;
+                document.getElementById('avatarKang').src = url;
+            } else {
+                appData.settings.avatarJiang = url;
+                document.getElementById('avatarJiang').src = url;
+            }
+            saveData();
+            closeModal('avatarModal');
+        }
+
+        function changeMealDate(dateVal) {
+            currentSelectedMealDate = dateVal;
+            renderMeals();
+        }
+
+        function renderMeals() {
+            const dateStr = currentSelectedMealDate;
+            document.getElementById('mealDateTitle').innerText = `${dateStr} 三餐食光`;
+            const dayMeals = (appData.meals && appData.meals[dateStr]) || { breakfast: {}, lunch: {}, dinner: {} };
+
+            renderSingleMealType('Breakfast', dayMeals.breakfast);
+            renderSingleMealType('Lunch', dayMeals.lunch);
+            renderSingleMealType('Dinner', dayMeals.dinner);
+
+            document.getElementById('summaryBreakfast').innerText = (dayMeals.breakfast.kang || dayMeals.breakfast.jiang) ? '已打卡 🍜' : '未打卡';
+            document.getElementById('summaryLunch').innerText = (dayMeals.lunch.kang || dayMeals.lunch.jiang) ? '已打卡 🍜' : '未打卡';
+            document.getElementById('summaryDinner').innerText = (dayMeals.dinner.kang || dayMeals.dinner.jiang) ? '已打卡 🍜' : '未打卡';
+        }
+
+        function renderSingleMealType(mealTypeKey, mealData) {
+            const kangData = mealData && mealData.kang;
+            const jiangData = mealData && mealData.jiang;
+
+            const badge = document.getElementById(`badge${mealTypeKey}Status`);
+            if (kangData && jiangData) {
+                badge.className = "text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700";
+                badge.innerText = "双人已完成";
+            } else if (kangData || jiangData) {
+                badge.className = "text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700";
+                badge.innerText = "单人已打卡";
+            } else {
+                badge.className = "text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500";
+                badge.innerText = "未打卡";
+            }
+
+            const textK = document.getElementById(`text${mealTypeKey}Kang`);
+            const timeK = document.getElementById(`time${mealTypeKey}Kang`);
+            const imgK = document.getElementById(`img${mealTypeKey}Kang`);
+            if (kangData) {
+                textK.innerText = kangData.text;
+                timeK.innerText = kangData.time;
+                textK.classList.remove('italic');
+                if (kangData.img) {
+                    imgK.src = kangData.img;
+                    imgK.classList.remove('hidden');
+                } else {
+                    imgK.classList.add('hidden');
+                }
+            } else {
+                textK.innerText = "还没有记录哦~";
+                timeK.innerText = "--:--";
+                textK.classList.add('italic');
+                imgK.classList.add('hidden');
+            }
+
+            const textJ = document.getElementById(`text${mealTypeKey}Jiang`);
+            const timeJ = document.getElementById(`time${mealTypeKey}Jiang`);
+            const imgJ = document.getElementById(`img${mealTypeKey}Jiang`);
+            if (jiangData) {
+                textJ.innerText = jiangData.text;
+                timeJ.innerText = jiangData.time;
+                textJ.classList.remove('italic');
+                if (jiangData.img) {
+                    imgJ.src = jiangData.img;
+                    imgJ.classList.remove('hidden');
+                } else {
+                    imgJ.classList.add('hidden');
+                }
+            } else {
+                textJ.innerText = "还没有记录哦~";
+                timeJ.innerText = "--:--";
+                textJ.classList.add('italic');
+                imgJ.classList.add('hidden');
+            }
+        }
+
+        function openCheckInModal(mealType) {
+            document.getElementById('modalMealType').value = mealType;
+            const titles = { breakfast: '打卡早餐', lunch: '打卡午餐', dinner: '打卡晚餐' };
+            document.getElementById('mealModalTitle').innerText = titles[mealType];
+            document.getElementById('mealDescInput').value = '';
+            document.getElementById('mealImageInput').value = '';
+            document.getElementById('mealModal').classList.remove('hidden');
+            document.getElementById('mealModal').classList.add('flex');
+        }
+
+        function saveMeal(e) {
+            e.preventDefault();
+            const mealType = document.getElementById('modalMealType').value;
+            const user = document.querySelector('input[name="mealUser"]:checked').value;
+            const text = document.getElementById('mealDescInput').value;
+            const img = document.getElementById('mealImageInput').value;
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (!appData.meals) appData.meals = {};
+            if (!appData.meals[currentSelectedMealDate]) {
+                appData.meals[currentSelectedMealDate] = { breakfast: {}, lunch: {}, dinner: {} };
+            }
+
+            const userKey = user === '康康' ? 'kang' : 'jiang';
+            appData.meals[currentSelectedMealDate][mealType][userKey] = { text, img, time };
+
+            saveData();
+            renderMeals();
+            closeModal('mealModal');
+        }
+
+        function addTodo(e) {
+            e.preventDefault();
+            const text = document.getElementById('todoInput').value;
+            const assignee = document.querySelector('input[name="todoAssignee"]:checked').value;
+            const newTodo = {
+                id: Date.now(),
+                text,
+                assignee,
+                completed: false,
+                date: new Date().toLocaleDateString()
+            };
+
+            if (!appData.todos) appData.todos = [];
+            appData.todos.unshift(newTodo);
+            saveData();
+            document.getElementById('todoInput').value = '';
+            renderTodos();
+        }
+
+        function toggleTodo(id) {
+            const todo = appData.todos.find(t => t.id === id);
+            if (todo) {
+                todo.completed = !todo.completed;
+                saveData();
+                renderTodos();
+            }
+        }
+
+        function deleteTodo(id) {
+            appData.todos = appData.todos.filter(t => t.id !== id);
+            saveData();
+            renderTodos();
+        }
+
+        function filterTodos(filter) {
+            currentTodoFilter = filter;
+            ['all', 'active', 'completed'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if (f === filter) {
+                    btn.className = "px-3 py-1 rounded-full bg-rose-500 text-white font-medium";
+                } else {
+                    btn.className = "px-3 py-1 rounded-full bg-white text-gray-600 border border-gray-200 font-medium";
+                }
+            });
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const container = document.getElementById('todoListContainer');
+            const homePreviewContainer = document.getElementById('homeTodoListPreview');
+            const todos = appData.todos || [];
+
+            let filtered = todos;
+            if (currentTodoFilter === 'active') filtered = todos.filter(t => !t.completed);
+            if (currentTodoFilter === 'completed') filtered = todos.filter(t => t.completed);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">暂无待办事项，快给对方布置一个小任务吧~</p>`;
+            } else {
+                let html = '';
+                filtered.forEach(t => {
+                    const assigneeClass = t.assignee === '康康' ? 'bg-rose-50 text-rose-600 border-rose-200' : 'bg-purple-50 text-purple-600 border-purple-200';
+                    html += `
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/70 border border-gray-100 shadow-sm transition hover:bg-white">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTodo(${t.id})" class="w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer">
+                                <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg border ${assigneeClass}">@${t.assignee}</span>
+                                <p class="text-xs sm:text-sm text-gray-700 truncate ${t.completed ? 'line-through text-gray-400' : ''}">${t.text}</p>
+                            </div>
+                            <button onclick="deleteTodo(${t.id})" class="text-gray-300 hover:text-rose-500 text-xs ml-3 p-1"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            const activeTodos = todos.filter(t => !t.completed).slice(0, 3);
+            if (activeTodos.length === 0) {
+                homePreviewContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">目前没有未完成的提醒哦 ✨</p>`;
+            } else {
+                let hHtml = '';
+                activeTodos.forEach(t => {
+                    hHtml += `
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/60 border border-gray-100 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-${t.assignee === '康康' ? 'rose' : 'purple'}-600">@${t.assignee}</span>
+                                <span class="text-gray-700 truncate">${t.text}</span>
+                            </div>
+                            <button onclick="toggleTodo(${t.id})" class="text-rose-500 hover:underline">完成</button>
+                        </div>
+                    `;
+                });
+                homePreviewContainer.innerHTML = hHtml;
+            }
+        }
+
+        function renderArticle() {
+            const todayStr = new Date().toISOString().split('T')[0];
+            let article = ARTICLES_POOL.find(a => a.date === todayStr) || ARTICLES_POOL[0];
+
+            document.getElementById('articleDateLabel').innerText = article.date;
+            document.getElementById('articleTitle').innerText = article.title;
+            document.getElementById('articleContent').innerText = article.content;
+
+            if (document.getElementById('homeArticleTitle')) {
+                document.getElementById('homeArticleTitle').innerText = article.title;
+                document.getElementById('homeArticleExcerpt').innerText = article.content;
+            }
+
+            renderNotes();
+        }
+
+        function submitNote(e) {
+            e.preventDefault();
+            const author = document.querySelector('input[name="noteAuthor"]:checked').value;
+            const content = document.getElementById('noteInputContent').value;
+            const todayStr = new Date().toISOString().split('T')[0];
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (!appData.notes) appData.notes = {};
+            if (!appData.notes[todayStr]) appData.notes[todayStr] = [];
+
+            appData.notes[todayStr].unshift({
+                id: Date.now(),
+                author,
+                content,
+                time
+            });
+
+            saveData();
+            document.getElementById('noteInputContent').value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const todayStr = new Date().toISOString().split('T')[0];
+            const notesContainer = document.getElementById('notesListContainer');
+            const notes = (appData.notes && appData.notes[todayStr]) || [];
+
+            if (notes.length === 0) {
+                notesContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">还没有人写读后感，快来抢沙发写下第一条感悟吧~</p>`;
+            } else {
+                let html = '';
+                notes.forEach(n => {
+                    const isKang = n.author === '康康';
+                    const badgeClass = isKang ? 'bg-rose-100 text-rose-700 border-rose-200' : 'bg-purple-100 text-purple-700 border-purple-200';
+                    html += `
+                        <div class="bg-white/80 p-3.5 rounded-2xl border border-purple-50 shadow-sm space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border ${badgeClass}">${n.author}</span>
+                                <span class="text-[10px] text-gray-400">${n.time}</span>
+                            </div>
+                            <p class="text-xs text-gray-700 font-serif leading-relaxed">${n.content}</p>
+                        </div>
+                    `;
+                });
+                notesContainer.innerHTML = html;
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
